@@ -1,0 +1,17 @@
+.dropdown-menu {
+  max-height: 300px;
+  overflow-y: auto;
+  border-radius: 10px;
+}
+
+.dropdown-menu img {
+  object-fit: cover;
+}
+
+.dropdown-menu li {
+  font-size: 0.9rem;
+}
+
+.dropdown-toggle::after {
+  display: none; /* يخفي السهم الصغير */
+}

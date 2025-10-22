@@ -1,0 +1,169 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <div class="container-fluid">
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold text-primary" href="#">MyStore</a>
+
+    <!-- Toggle Button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Left Links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">🏠 Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">🛍️ Products</a>
+        </li>
+      </ul>
+
+      <!-- Right Icons -->
+      <div class="d-flex align-items-center gap-3">
+        <!-- Favorite Dropdown -->
+        <div class="dropdown">
+          <button
+            class="btn btn-outline-danger position-relative dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            ❤️ Favorites
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            >
+              {{ favproducts().length }}
+            </span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end p-2" style="width: 270px;">
+            @if (favproducts().length > 0) {
+              @for (item of favproducts(); track item.id) {
+                <li
+                  class="d-flex align-items-center justify-content-between mb-2"
+                >
+                  <div class="d-flex align-items-center">
+                    <img
+                      [src]="item.image"
+                      alt=""
+                      width="35"
+                      height="35"
+                      class="rounded me-2"
+                    />
+                    <span class="flex-grow-1">{{ item.title }}</span>
+                  </div>
+                  <button
+                    class="btn btn-sm btn-outline-danger ms-2"
+                    (click)="removeFav(item.id)"
+                    title="Remove from Favorites"
+                  >
+                    🗑️
+                  </button>
+                </li>
+              }
+              <li><hr /></li>
+              <li class="text-center">
+                <button class="btn btn-sm btn-danger w-100"
+                [routerLink]="['/favorite-product']"
+                >
+                  Go to favorites
+                </button>
+              </li>
+            } @else {
+              <li class="text-center text-muted">No favorites yet ❤️</li>
+            }
+          </ul>
+        </div>
+
+        <!-- Cart Dropdown -->
+        <div class="dropdown">
+          <button
+            class="btn btn-outline-primary position-relative dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            🛒 Cart
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+            >
+              {{ cartproducts().length }}
+            </span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end p-2" style="width: 270px;">
+            @if (cartproducts().length > 0) {
+              @for (item of cartproducts(); track item.id) {
+                <li
+                  class="d-flex align-items-center justify-content-between mb-2"
+                >
+                  <div class="d-flex align-items-center">
+                    <img
+                      [src]="item.image"
+                      alt=""
+                      width="35"
+                      height="35"
+                      class="rounded me-2"
+                    />
+                    <span class="flex-grow-1">{{ item.title }}</span>
+                  </div>
+                  <div class="text-end">
+                    <span class="text-success fw-bold d-block mb-1"
+                      >${{ item.price }}</span
+                    >
+                    <button
+                      class="btn btn-sm btn-outline-danger"
+                      (click)="deleteItem(item.id)"
+                      title="Remove from Cart"
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                </li>
+              }
+              <li><hr /></li>
+              <li class="text-center">
+                <button class="btn btn-sm btn-primary w-100"
+                [routerLink]="['/product-cart']">
+                  Go to Cart
+                </button>
+              </li>
+            } @else {
+              <li class="text-center text-muted">Your cart is empty 🛒</li>
+            }
+          </ul>
+        </div>
+
+        <!-- Login Button -->
+        <a
+          class="btn btn-outline-success fw-semibold"
+          [routerLink]="['/login']"
+          role="button"
+        >
+          🔐 Login
+        </a>
+
+        <!-- Search -->
+        <form class="d-flex ms-2">
+          <input
+            class="form-control form-control-sm me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-sm btn-outline-success" type="submit">
+            Search
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
