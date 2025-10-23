@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { ProductService } from '../services/product-service';
 import { RouterLink } from '@angular/router';
+import { ProductService } from '../../services/product-service';
 
 @Component({
   selector: 'app-navbar',

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { ProductService } from '../services/product-service';
-import { IProduct } from '../interfaces/iproduct';
+import { IProduct } from '../../interfaces/iproduct';
+import { ProductService } from '../../services/product-service';
 
 @Component({
   selector: 'app-product-cart',

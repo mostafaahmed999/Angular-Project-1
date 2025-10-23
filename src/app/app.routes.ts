@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
-import { ProductList } from './product-list/product-list';
-import { ProductDetails } from './product-details/product-details';
-import { NotFoundComponent } from './not-found-component/not-found-component';
 import { authGuard } from './guards/auth-guard';
-import { FavoriteProduct } from './favorite-product/favorite-product';
-import { ProductCart } from './product-cart/product-cart';
+import { FavoriteProduct } from './components/favorite-product/favorite-product';
+import { NotFoundComponent } from './components/not-found-component/not-found-component';
+import { ProductCart } from './components/product-cart/product-cart';
+import { ProductDetails } from './components/product-details/product-details';
+import { ProductList } from './components/product-list/product-list';
+
 
 
 export const routes: Routes = [
@@ -13,6 +14,6 @@ export const routes: Routes = [
   {path: 'product-cart', component: ProductCart },
   {path: 'favorite-product', component: FavoriteProduct },
   {path: 'product-details/:id', component: ProductDetails, canActivate: [authGuard] },
-  {path: 'login', loadComponent: () => import('./login/login').then(m => m.Login)},
+  {path: 'login', loadComponent: () => import('./components/login/login').then(m => m.Login)},
   {path: '**', component: NotFoundComponent}
 ];

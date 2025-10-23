@@ -26,4 +26,9 @@ export class Login {
   }
 }
 
+
+// login(data:any){
+//   console.log('login',data);  }
+
+
 }

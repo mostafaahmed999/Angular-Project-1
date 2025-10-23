@@ -1,16 +1,16 @@
 <div class="container mt-5">
-  @if (productdata) {
+  @if (productdata|async;as productdata) {
     <div class="row justify-content-center">
       <div class="col-md-6 text-center">
         <img
-          [src]="productdata.image"
+          [src]="productdata.thumbnail"
           [alt]="productdata.title"
           class="img-fluid rounded shadow mb-3"
         />
         <h2 class="text-primary">{{ productdata.title }}</h2>
         <p class="text-muted">{{ productdata.description }}</p>
         <h4 class="text-success">💰 ${{ productdata.price }}</h4>
-        <p>⭐ {{ productdata.rate }} | الكمية المتاحة: {{ productdata.count }}</p>
+        <p>⭐ {{ productdata.rating }} | الكمية المتاحة: {{ productdata.stock }}</p>
 
         <button class="btn btn-outline-primary me-2">🛒 أضف إلى السلة</button>
         <button class="btn btn-outline-danger">❤️ أضف للمفضلة</button>

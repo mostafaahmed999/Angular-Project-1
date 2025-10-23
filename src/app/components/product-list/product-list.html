@@ -1,0 +1,8 @@
+<div class="container mt-4">
+  <div class="row g-2">
+    @for (product of (productdata|async)?.products; track $index) {
+      <app-product-card [productInput]="product"
+      class="col-6 col-md-3 d-flex justify-content-start" ></app-product-card>
+    }
+  </div>
+</div>

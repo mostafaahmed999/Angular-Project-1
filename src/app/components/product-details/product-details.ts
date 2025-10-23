@@ -1,12 +1,12 @@
-import { JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { inject } from '@angular/core';
-import { ProductService } from '../services/product-service';
+import { ProductService } from '../../services/product-service';
 
 @Component({
   selector: 'app-product-details',
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './product-details.html',
   styleUrl: './product-details.css'
 })
