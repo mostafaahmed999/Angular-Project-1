@@ -1,0 +1,96 @@
+<div class="container mt-5">
+  <h3 class="text-center text-primary mb-4">Add New User</h3>
+
+  <form [formGroup]="userForm" (ngSubmit)="onSave()" class="w-50 mx-auto border p-4 rounded shadow">
+
+    <!-- First Name -->
+    <div class="mb-3">
+      <label class="form-label">First Name</label>
+      <input type="text" formControlName="firstName" class="form-control" />
+
+      @if (userForm.get('firstName')?.touched && userForm.get('firstName')?.invalid) {
+        <div class="text-danger mt-1">
+          @if (userForm.get('firstName')?.errors?.['required']) {
+            <div>First name is required</div>
+          }
+          @if (userForm.get('firstName')?.errors?.['minlength']) {
+            <div>Minimum 5 characters</div>
+          }
+          @if (userForm.get('firstName')?.errors?.['maxlength']) {
+            <div>Maximum 10 characters</div>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Last Name -->
+    <div class="mb-3">
+      <label class="form-label">Last Name</label>
+      <input type="text" formControlName="lastName" class="form-control" />
+
+      @if (userForm.get('lastName')?.touched && userForm.get('lastName')?.invalid) {
+        <div class="text-danger mt-1">Last name is required</div>
+      }
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" formControlName="email" class="form-control" />
+
+      @if (userForm.get('email')?.touched && userForm.get('email')?.invalid) {
+        <div class="text-danger mt-1">
+          @if (userForm.get('email')?.errors?.['required']) {
+            <div>Email is required</div>
+          }
+          @if (userForm.get('email')?.errors?.['email']) {
+            <div>Invalid email format</div>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Image URL -->
+    <div class="mb-3">
+      <label class="form-label">Image URL</label>
+      <input type="text" formControlName="imageUrl" class="form-control" />
+
+      @if (userForm.get('imageUrl')?.touched && userForm.get('imageUrl')?.invalid) {
+        <div class="text-danger mt-1">Image URL is required</div>
+      }
+    </div>
+
+    <!-- Save Button -->
+    <button class="btn btn-success w-100" [disabled]="userForm.invalid">Save</button>
+  </form>
+
+  <!-- Table of Saved Users -->
+  <div class="mt-5">
+    <h4 class="text-center">Saved Users</h4>
+
+    @if (users.length === 0) {
+      <div class="text-center text-muted mt-3">No users added yet</div>
+    } @else {
+      <table class="table table-bordered table-striped mt-3 text-center align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Image</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of users; track user.email) {
+            <tr>
+              <td><img [src]="user.imageUrl" width="50" height="50" class="rounded-circle" /></td>
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td>{{ user.email }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</div>

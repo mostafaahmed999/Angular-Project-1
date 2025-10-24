@@ -1,34 +1,41 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { ProductService } from '../../services/product-service';
+import { IUser } from '../../interfaces/iuser';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.css',
+  styleUrl: './login.css'
 })
 export class Login {
-  email: string = '';
-  password: string = '';
-  errorMessage: string = '';
+  productservice = inject(ProductService);
+  router = inject(Router);
+  http = inject(HttpClient);
+  products: IUser[] = [];
 
-  constructor(private router: Router) {}
+  onSubmit(form: any) {
+    this.http.get<any>('https://dummyjson.com/users').subscribe((data) => {
+      this.products = data.users;
 
-  onSubmit() {
-  // 🔒 بسيط كمثال – تقدر تبدله بـ service أو API
-  if (this.email === 'admin@gmail.com' && this.password === '123456') {
-    localStorage.setItem('auth', 'true'); // نحط علامة إنه داخل ✅
-    this.router.navigate(['/product-list']);
-  } else {
-    this.errorMessage = 'Invalid email or password!';
+      let userfound = this.products.find(user => {
+        return user.username == form.value.Username && user.password == form.value.password;
+      });
+
+      if (userfound) {
+        localStorage.setItem('auth', 'true');
+        this.router.navigate(['/product-list']);
+      }
+      else {
+        localStorage.setItem('auth', 'false');
+        alert("invalid username or password");
+      }
+    });
   }
-}
-
-
-// login(data:any){
-//   console.log('login',data);  }
-
-
+  goToRegister() {
+    this.router.navigate(['/add-user']);
+  }
 }
